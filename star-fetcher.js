@@ -1,4 +1,4 @@
-const fs = require("fs")
+const writeFile = require("writefile")
 const Octokit = require("@octokit/rest")
 const octokit = Octokit({
   headers: {
@@ -19,5 +19,7 @@ octokit.authenticate({
 module.exports = async function saveData(owner, repo) {
   const res = await octokit.paginate('GET /repos/:owner/:repo/stargazers', { owner, repo })
   console.log("done fetching; writing to filesystem!")
-  fs.writeFileSync(`./star-data/${owner}-${repo}.json`, JSON.stringify(res, null, 2))
+  const path = `./star-data/${owner}-${repo}.json`
+  await writeFile(path, JSON.stringify(res, null, 2))
+  console.log(`data saved to ${path}`)
 }

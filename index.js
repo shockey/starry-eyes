@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 require('dotenv').config()
 const fs = require("fs")
+const writeFile = require("writefile")
 const starFetcher = require("./star-fetcher")
 const starReporter = require("./star-reporter")
 
@@ -29,8 +30,10 @@ async function main() {
       try {
         const data = fs.readFileSync(`./star-data/${owner}-${repo}.json`)
         const obj = JSON.parse(data)
+        const path = `./star-reports/${owner}-${repo}.csv`
         const projection = await starReporter(obj)
-        fs.writeFileSync(`./star-reports/${owner}-${repo}.csv`, projection)
+        await writeFile(path, projection)
+        console.log(`report saved to ${path}`)
       } catch(e) {
         console.error(e)
         console.error("Fatal error: Could not read star data.")
