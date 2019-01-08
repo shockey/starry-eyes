@@ -8,4 +8,4 @@
 ### Usage
 
 - **Fetch raw stargazer data from GitHub**: `./index.js fetch stars someuser/somerepo`
-- **Generate a by-month CSV of stargazers**: `./index.js report stars someuser/somerepo``
+- **Generate a by-month CSV of stargazers**: `./index.js report stars someuser/somerepo`
